@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="jumbo">
+  <br/><br/><br/><p>
+  <h3>Your Transactions<h3>
+  </p><hr/>
+  <div id="orderhistory">
+  <table class="table table-striped">
+    <tr>
+      <th>#</th>
+      <th>Action</th>
+      <th>Quantity</th>
+      <th>Currency</th>
+      <th>Rate</th>
+      <th>Rate Option</th>
+    </tr>
+    {% for c in buy_entries : %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td>Buy</td>
+        <td>{{ c.quantity }}</td>
+        <td>{{ c.currency }}</td>
+        <td>{{ c.buy_rate }}</td>
+        <td>{{ c.buy_order_type }}</td>
+      </tr>
+    {% endfor %}
+    {% for c in sell_entries : %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td>Sell</td>
+        <td>{{ c.quantity }}</td>
+        <td>{{ c.currency }}</td>
+        <td>{{ c.sell_rate }}</td>
+        <td>{{ c.sell_order_type }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+  </div>
+</div>
+{% endblock %}

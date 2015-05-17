@@ -1,0 +1,12 @@
+<form action="{{ url_for('funds') }}" method="post" enctype="multipart/form-data" name="funds" id="funds">
+  <div class="form-group">
+    {{ form.hidden_tag() }}<br/>
+    <label for="logInput">How much funds you want to add?</label>
+    {{ form.funds(autofocus=true, class='form-control select') }}<br/>
+    <label for="logInput">How much bitcoins you want to add?</label>
+    {{ form.Bitcoin(autofocus=true, class='form-control select') }}<br/>
+    <label for="logInput">How much dogecoins you want to add?</label>
+    {{ form.Dogecoin(autofocus=true, class='form-control select') }}<br/>
+    <button type="button" class="btn btn-primary pull-right" align="center" onclick="ajax_post_submit('funds');">Add funds</button>
+  </div>
+</form>

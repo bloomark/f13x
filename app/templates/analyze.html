@@ -1,0 +1,39 @@
+<div class="code">
+{% for message in get_flashed_messages() %}
+  <div class="flash alert alert-info">
+    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> {{ message }}
+  </div>
+{% endfor %}
+</div>
+<script type="text/javascript">
+function autoResize(id){
+    var newheight;
+    var newwidth;
+
+    if(document.getElementById){
+        newheight=document.getElementById(id).contentWindow.document .body.scrollHeight;
+        newwidth=document.getElementById(id).contentWindow.document .body.scrollWidth;
+    }
+
+    document.getElementById(id).height= (newheight) + "px";
+    document.getElementById(id).width= (newwidth) + "px";
+}
+</script>
+
+<form action="{{url_for('analyze')}}" method="POST" enctype="multipart/form-data" name="chart_selection" id="chart_selection" target="chart_div">
+  <div class="form-group">
+    {{ form.hidden_tag() }}<br/>
+    Choose currency   : {{ form.currency(autofocus=true, class='form-control select') }}<br/>
+    Choose Chart Type : {{ form.chart_type(class='form-control select' )}}<br/>
+    <br/>
+    <button type="submit" class="btn btn-primary pull-right" align="center">
+      Plot it!
+    </button>
+    </div>
+  </div>
+</form>
+
+<br/><br/><hr style="width: 100%; color: light-grey; height: 0.5px; background-color:grey;">
+<iframe id="chart_div" name="chart_div" 
+width="100%" height="500px" marginheight="0" frameborder="0" onLoad="autoResize('chart_div');">
+</iframe>

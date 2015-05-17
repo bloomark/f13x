@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="jumbo">
+  <br/><br/><br/><p>
+  <h3>Your Orders<h3>
+  </p><hr/>
+  <div id="orderhistory">
+  <form action="/delete_order" method="POST">
+  <input name="deletion_id" id="deletion_id" type="hidden" value=""/>
+  <table class="table table-striped">
+    <tr>
+      <th>#</th>
+      <th>Action</th>
+      <th>Quantity Outstanding</th>
+      <th>Quantity Fulfilled</th>
+      <th>Currency</th>
+      <th>Order Type</th>
+      <th>Rate</th>
+      <th>Is Complete</th>
+      <th>Delete</th>
+    </tr>
+    {% for c in entries : %}
+      <tr>
+      	<td>{{ loop.index }}</td>
+        <td>{{ c.action }}</td>
+      	<td>{{ c.quantity_outstanding }}</td>
+        <td>{{ c.quantity_fulfilled }}</td>
+        <td>{{ c.currency }}</td>
+      	<td>{{ c.order_type }}</td>
+      	<td>{{ c.rate }}</td>
+		    <td>{{ c.is_complete == 1}}</td>
+        <td><button onclick="document.getElementById('deletion_id').value='{{c.order_id}}'">Delete</button></td>
+      </tr>
+    {% endfor %}
+  </table>
+  </div>
+</div>
+{% endblock %}

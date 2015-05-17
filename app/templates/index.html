@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>f13x</title>
+    <link rel="icon" type="image/png" href="static/favicon.png">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<!--<link href="static/css/bootstrap.min.css" rel="stylesheet">-->
+		<!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="static/css/styles.css" rel="stylesheet">
+
+    <script type="text/javascript">
+      function changeText(){
+        if(document.getElementById('order_type-0').checked == true){
+          document.getElementById('rate').setAttribute('disabled', '');
+          document.getElementById('rate').value="0.0";
+        }
+        if(document.getElementById('order_type-1').checked == true){
+          document.getElementById('rate').removeAttribute('disabled', '');
+          return;
+        }
+      }
+    </script>
+    <script>
+      function ajax_post_submit(form_name, div_name) {
+        div_name = typeof div_name !== 'undefined' ? div_name : 'dashboard';
+        div_name = '#' + div_name;
+        trade_form = document.getElementById(form_name);
+        $.ajax({ // create an AJAX call...
+          data: $(trade_form).serialize(), // get the form data
+          type: $(trade_form).attr('method'), // GET or POST
+          url: $(trade_form).attr('action'), // the file to call
+          success: function(response) { // on success..
+            $(div_name).html(response); // update the DIV
+          }
+        });
+        return false; // cancel original event to prevent form submitting
+      };
+    </script>
+
+    <script type="text/javascript">
+      /***********************************************
+      * Dynamic Ajax Content- © Dynamic Drive DHTML code library (www.dynamicdrive.com)
+      * This notice MUST stay intact for legal use
+      * Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
+      ***********************************************/
+      var bustcachevar=1 //bust potential caching of external pages after initial request? (1=yes, 0=no)
+      var loadedobjects=""
+      var rootdomain="http://"+window.location.hostname
+      var bustcacheparameter=""
+
+      function ajaxpage(url, containerid)
+      {
+          var page_request = false;
+          if (window.XMLHttpRequest) // if Mozilla, Safari etc
+              page_request = new XMLHttpRequest()
+          else if (window.ActiveXObject){ // if IE
+              try {
+                  page_request = new ActiveXObject("Msxml2.XMLHTTP")
+              } 
+              catch (e){
+                  try{
+                      page_request = new ActiveXObject("Microsoft.XMLHTTP")
+                  }
+                  catch (e){}
+              }
+          }
+          else
+              return false
+          page_request.onreadystatechange=function(){
+              loadpage(page_request, containerid)
+          }
+          if (bustcachevar) //if bust caching of external page
+              bustcacheparameter=(url.indexOf("?")!=-1)? "&"+new Date().getTime() : "?"+new Date().getTime();
+              page_request.open('GET', url+bustcacheparameter, true);
+              page_request.send(null)
+      }
+
+      function loadpage(page_request, containerid)
+      {
+          if (page_request.readyState == 4 && (page_request.status==200 || window.location.href.indexOf("http")==-1))
+              document.getElementById(containerid).innerHTML=page_request.responseText
+      }
+
+      function loadobjs(){
+        if (!document.getElementById)
+          return
+        for (i=0; i<arguments.length; i++){
+          var file=arguments[i]
+          var fileref=""
+          if (loadedobjects.indexOf(file)==-1){ //Check to see if this object has not already been added to page before proceeding
+            if (file.indexOf(".js")!=-1){ //If object is a js file
+              fileref=document.createElement('script')
+              fileref.setAttribute("type","text/javascript");
+              fileref.setAttribute("src", file);
+            }
+            else if (file.indexOf(".css")!=-1){ //If object is a css file
+              fileref=document.createElement("link")
+              fileref.setAttribute("rel", "stylesheet");
+              fileref.setAttribute("type", "text/css");
+              fileref.setAttribute("href", file);
+            }
+          }
+          if (fileref!=""){
+            document.getElementsByTagName("head").item(0).appendChild(fileref)
+            loadedobjects+=file+" " //Remember this object as being already added to page
+          }
+        }
+      }
+  </script>
+	</head>
+	<body>
+
+<!-- Header -->
+<div id="top-nav" class="navbar navbar-inverse navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-toggle"></span>
+      </button>
+      <a class="navbar-brand" href="/">f13x</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        
+        <li class="dropdown">
+          <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
+            <i class="glyphicon glyphicon-user"></i> {{username}} <span class="caret"></span></a>
+          <ul id="g-account-menu" class="dropdown-menu" role="menu">
+            <li><a href="javascript:ajaxpage('/profile', 'dashboard');">My Profile</a></li>
+            <li><a href='/logout'><i class="glyphicon glyphicon-log-out"></i> Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div><!-- /container -->
+</div>
+<!-- /Header -->
+
+<!-- Main -->
+<div class="container">
+  
+  <!-- upper section -->
+  <div class="row">
+	  
+    <!-- This div corresponds to the left menu -->
+    <div class="col-sm-3">
+      <!-- left -->
+      <h3><i class="glyphicon glyphicon-briefcase"></i> Toolbox </h3>
+      <hr>
+      <ul class="nav nav-stacked">
+        <li><a href="javascript:ajaxpage('/home',    'dashboard');"><i class="glyphicon glyphicon-home"></i> Home</a></li>
+        <li><a href="javascript:ajaxpage('/trade',   'dashboard');"><i class="glyphicon glyphicon-bitcoin"></i> Trade</a></li>
+        <li><a href="javascript:ajaxpage('/log',     'dashboard');"><i class="glyphicon glyphicon-list-alt"></i> View Transaction Log</a></li>
+        <li><a href="javascript:ajaxpage('/book',    'dashboard');"><i class="glyphicon glyphicon-book"></i> Order Book</a></li>
+        <li><a href="javascript:ajaxpage('/analyze', 'dashboard');"><i class="glyphicon glyphicon-stats"></i> Analyze Markets</a></li>
+        <ul class="nav nav-pills nav-stacked collapse in" id="p1">
+          <li data-toggle="collapse" data-parent="#p1" href="#pv1">
+            <a class="nav-sub-container"><i class="glyphicon glyphicon-chevron-down"></i> Manage Funds</span></a></li>
+          <ul class="nav nav-pills nav-stacked collapse in" id="pv1">
+            <li><a href="javascript:ajaxpage('/bitcoin', 'dashboard');"><i class="glyphicon glyphicon-chevron-right"></i> Bitcoin</a></li>
+            <li><a href="javascript:ajaxpage('/dogecoin', 'dashboard');"><i class="glyphicon glyphicon-chevron-right"></i> Dogecoin</a></li>
+          </ul>
+        </ul>
+        <li><a href="javascript:ajaxpage('/help',    'dashboard');"><i class="glyphicon glyphicon-info-sign"></i> Help</a></li>
+      </ul>
+      <hr>
+      
+  	</div><!-- /span-3 -->
+
+    <!-- This div holds the main page -->
+    <div class="col-sm-9">
+        <div class="row">
+          <div class="code">
+            {% for message in get_flashed_messages() %}
+              <div class="flash alert alert-info">
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> {{ message }}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+	      <div class="row">
+          <hr>
+          <!-- This div holds the actual content to be displayed when a menu item is clicked-->
+          <div id='dashboard'>
+            <h4> Welcome to f13x cryptocurrency exchange. </h4>
+            <div> 
+              <table class="table table-responsive">
+                <tr><td><b>Home &nbsp</b></td><td> to view your current balance.</td></tr>
+                <tr><td><b>Trade &nbsp</b></td><td> to trade some cryptocurrencies.</td></tr>
+                <tr><td><b>View Transaction Log &nbsp</b></td><td> to view your previous orders which are completed or cancelled.</td></tr>
+                <tr><td><b>Order Book &nbsp</b></td><td> to view your active orders.</td></tr>
+                <tr><td><b>Analyze Markets &nbsp</b></td><td> to visualize current market rates.</td></tr>
+                <tr><td><b>Manage Funds &nbsp</b></td><td> to add / withdraw funds.</td></tr>
+                <tr><td><b>Help &nbsp</b></td><td> to see this menu.</td></tr>
+              </table>
+            </div>
+        </div>  
+    </div>
+    
+  </div><!--/row-->
+  
+</div><!--/container-->
+<!-- /Main -->
+
+
+<!--<div class="navbar navbar-fixed-bottom navbar-default text-center">f13x Cryptocurrency Exchange</div>-->
+  
+	<!-- script references -->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+		<script src="static/js/bootstrap.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/highcharts-more.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+	</body>
+</html>

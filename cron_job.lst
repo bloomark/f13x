@@ -1,0 +1,2 @@
+*/10 * * * * python /home/ubuntu/application/f13x/assign_public_addresses.py >/dev/null 2>&1
+

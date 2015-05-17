@@ -1,0 +1,26 @@
+import os
+from authomatic.providers import oauth2, oauth1, openid
+from open_auth_client_secrets import open_auth_config
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+CSRF_ENABLED = True #Don't touch this
+SECRET_KEY = '' #Secret key for your flask app
+
+OPEN_AUTH_CONFIG = open_auth_config
+
+LOGIN = 1
+SIGNUP = 2
+
+MAIL_SERVER = '' #Stuff like smtp.gmail.com
+MAIL_PORT = 0 "Gmail's default is 465
+MAIL_USERNAME = '' #Email username
+MAIL_PASSWORD = '' #Email password
+MAIL_USE_TLS = False
+MAIL_USE_SSL = True
+
+SERVER_DB_ADDRESS = '' #Webserver Database IP Address
+
+ADMIN_EMAIL = '' #Admin's email address, there can only be one :|
+
+NAME = '' #testnet, mainnet or regtest

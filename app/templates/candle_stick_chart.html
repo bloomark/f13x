@@ -1,0 +1,36 @@
+<html>
+<body>
+
+<div id="container" style="width:100%;"></div>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script src="http://code.highcharts.com/stock/highstock.js"></script>
+<script src="http://code.highcharts.com/stock/modules/exporting.js"></script>
+
+<script type='text/javascript'>
+$(function () {
+    // create the chart
+    $('#container').highcharts('StockChart', {
+        rangeSelector : {
+            selected : 0
+        },
+        title : {
+            text : '{{currency}} Exchange Prices'
+        },
+        series : [{
+            type : 'candlestick',
+            name : '{{currency}} Sell Prices',
+            data : {{data_series['Sell']}},
+        },
+        {
+            type : 'candlestick',
+            name : '{{currency}} Buy Prices',
+            data : {{data_series['Buy']}},
+        }
+        ]
+    });
+});
+
+</script>
+</body>
+</html>

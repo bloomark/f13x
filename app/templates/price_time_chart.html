@@ -1,0 +1,58 @@
+<html>
+<body>
+
+<div id="container" style="width:100%;"></div>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script src="http://code.highcharts.com/stock/highstock.js"></script>
+<script src="http://code.highcharts.com/stock/modules/exporting.js"></script>
+
+<script type='text/javascript'>
+$(function () {
+    // create the chart
+    $('#container').highcharts('StockChart', {
+        rangeSelector : {
+            selected : 2
+        },
+        title : {
+            text : '{{currency}} Exchange Prices'
+        },
+        series : [{
+            type : 'line',
+            name : '{{currency}} Sell Prices',
+            data : {{data_series['Sell']}},
+            dataGrouping : {
+                units : [
+                    [
+                        'week', // unit name
+                        [1] // allowed multiples
+                    ], [
+                        'month',
+                        [1, 2, 3, 4, 6]
+                    ]
+                ]
+            }
+        },
+        {
+            type : 'line',
+            name : '{{currency}} Buy Prices',
+            data : {{data_series['Buy']}},
+            dataGrouping : {
+                units : [
+                    [
+                        'week', // unit name
+                        [1] // allowed multiples
+                    ], [
+                        'month',
+                        [1, 2, 3, 4, 6]
+                    ]
+                ]
+            }
+        }
+        ]
+    });
+});
+
+</script>
+</body>
+</html>

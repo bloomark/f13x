@@ -1,0 +1,7 @@
+*.pyc
+*.pyo
+*.db
+tmp/
+flask
+config.py
+*secrets.py

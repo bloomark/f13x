@@ -1,0 +1,21 @@
+<br/><br/>
+<div class="code">
+{% for message in get_flashed_messages() %}
+  <div class="flash alert alert-info">
+    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> {{ message }}
+  </div>
+{% endfor %}
+</div>
+
+<form action="{{ url_for('admin_user_manager') }}" method="post" enctype="multipart/form-data" name="admin_funds" id="admin_funds">
+  <div class="form-group">
+    {{ form.hidden_tag() }}<br/>
+    <label>Choose Email</label>
+    {{ form.email(class='form-control') }} <br/>
+    <button type="button" class="btn btn-danger  pull-left"  align="center" onclick="ajax_post_submit('admin_funds', 'dashboard', 'admin_delete_user');">Delete User</button>
+    <button type="button" class="btn btn-primary pull-right" align="center" onclick="ajax_post_submit('admin_funds', 'manage_user');">Manage User</button>
+  </div>
+</form>
+
+<div id='manage_user' name='manage_user'>
+</div>

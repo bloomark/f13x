@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+<script type='text/javascript'>
+    google.load('visualization', '1', {'packages':['corechart']});
+    google.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        {% for currency in currencies %}
+            var jsonData{{currency}} = $.ajax({
+                url: "/api/json/quote/{{currency}}",
+                dataType:"json",
+                async: false
+            }).responseText;
+            // Create our data table out of JSON data loaded from server.
+            var data{{currency}} = new google.visualization.DataTable(jsonData{{currency}});
+            //alert(jsonData);
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart{{currency}} = new google.visualization.LineChart(document.getElementById('chart_div_{{currency}}'));
+            chart{{currency}}.draw(data{{currency}}, {width: 800, height: 480});
+        {% endfor %}
+    }
+    setInterval(function(){ drawChart();}, 5*1000);//Refresh every 5 seconds
+</script>
+{% endblock %}
+
+
+{% block content %}
+<br/><br/><br/><br/>
+<div class="row">
+{% for currency in currencies %}
+<b> Quotes for {{currency}} </b>
+<div id="chart_div_{{currency}}"></div>
+{% endfor %}
+</div>
+{% endblock %}

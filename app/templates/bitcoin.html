@@ -1,0 +1,89 @@
+<div class="code">
+    {% for message in get_flashed_messages() %}
+      <div class="flash alert alert-info">
+        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> {{ message }}
+      </div>
+    {% endfor %}
+</div>
+
+<div class="row">
+    <div class="col-md-8 col-md-offset-2 col-md-12">
+        <div class="row" style="margin-top:20px;">
+            <div class="col-md-12 col-md-12" style="text-align: center;">
+                <h4 style="line-height: 40px;">{{ pub_key }}</h4>
+                    <img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl={{pub_key}}&choe=UTF-8" alt="QR code">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-8 col-md-offset-2 col-md-12">
+        <div class="panel panel-success">
+            <div class="panel-body">
+                <h4>Balance</h4>
+            </div>
+            <div class="panel-footer" style="padding:10px;">
+                <span class="label label-success">{{ confirmed }}</span>
+                <span style="margin:0px 0px 0px 10px;">Confirmed</span>
+            </div>
+            <div class="panel-footer" style="padding:10px;">
+                <span class="label label-warning">{{ pending }}</span>
+                <span style="margin:0px 0px 0px 10px;">Pending</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8 col-md-offset-2 col-md-12">
+        <form action="{{ url_for('manage_bitcoin') }}" method="post" enctype="multipart/form-data" name="bitcoin" id="bitcoin">
+            <h4>Send Bitcoin!</h4>(BTC 0.0001 fee per transaction)
+            <div class="form-group">
+                {{ form.hidden_tag() }}<br/>
+                {{ form.address(autofocus=true, class='form-control select', placeholder='Bitcoin Address') }}<br/>
+                {{ form.amount(autofocus=true, class='form-control select', placeholder='Amount') }}
+                <button type="button" class="btn btn-primary pull-right" align="center" onclick="ajax_post_submit('bitcoin');">Send!</button>
+            </div>
+        </form>
+    </div>
+</div>
+<br/>
+<div class='row'>
+    <div class="col-md-8 col-md-offset-2 col-md-12">
+        <div class="panel panel-success">
+            <div class="panel-body">
+                <h4>Transactions</h4>
+            </div>
+            <table class="table table-striped table-responsive">
+                <tr>
+                    <th>Amount</th>
+                    <th>Destination</th>
+                    <th>Txid</th>
+                </tr>
+                {% for t in txns: %}
+                <tr>
+                    <td>{{ t.amount }}</td>
+                    <td>{{ t.pub_key }}</td>
+                    <td>
+                    {% if t.txid != '' %}
+                    <a href="https://www.blocktrail.com/tBTC/tx/{{ t.txid }}">Blocktrail</a>
+                    {% else %}
+                    Pending
+                    {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            <!--<div class="panel-footer" style="padding:10px;">
+                <span class="label label-success">{{ confirmed }}</span>
+                <span style="margin:0px 0px 0px 10px;">Confirmed</span>
+            </div>
+            <div class="panel-footer" style="padding:10px;">
+                <span class="label label-warning">{{ pending }}</span>
+                <span style="margin:0px 0px 0px 10px;">Pending</span>
+            </div>-->
+        </div>
+    </div>
+</div>

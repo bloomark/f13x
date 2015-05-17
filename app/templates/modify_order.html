@@ -1,0 +1,48 @@
+<div class="code">
+{% for message in get_flashed_messages() %}
+  <div class="flash alert alert-info">
+    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> {{ message }}
+  </div>
+{% endfor %}
+</div>
+
+<form action="{{url_for('delete_or_modify_order')}}" method="POST" enctype="multipart/form-data" name="modify_order" id="modify_order">
+  <div class="form-group">
+    {{ form.hidden_tag() }}
+    <div class="row">
+      <div class="col-md-5"><label>Buy/Sell</label><br/>{{ form.action(class='form-control select', disabled='') }}</div>
+      <div class="col-md-4"><label>Currency</label><br/>{{ form.currency(class='form-control select', disabled='') }}</div>
+    </div>
+    <div class="row"><br/></div>
+    <div class ="row">
+      <div class="col-md-9"><label>Quantity</label><br/>{{ form.quantity(class='form-control input') }}</div>
+    </div>
+    <div class="row"><br/></div>
+    <div class="row"> 
+      <div class="col-md-5"><label>Order Type</label><br/>{{ form.order_type(class="radio", onclick="changeText()") }}</div>
+      <div class="col-md-4"><label>Timing</label><br/>{{ form.expiry(class='form-control select') }}</div>
+    </div>
+    <div class="row"><br/></div>
+    <div class="row">
+        <div class="col-md-5">
+          <label>Rate</label><br/>
+          <div class="input-group"> 
+            {% if form.order_type.data == '0' %}
+              {{ form.rate(class="form-control input", disabled='') }}
+            {% else %}
+              {{ form.rate(class="form-control input") }}
+            {% endif %}
+            <span class="input-group-addon"> / <i class="glyphicon glyphicon-bitcoin"></i></span>
+          </div>
+        </div>
+    </div>
+          
+    <br/>
+    
+    <input type="hidden" value="" name="modify_or_delete" id="modify_or_delete">
+    
+    <button type="button" class="btn btn-primary pull-left"  name="modify_order_submit" value="Modify" align="center" onclick="document.getElementById('modify_or_delete').value = 'Modify'; ajax_post_submit('modify_order');">Modify Order</button>
+
+    <button type="button" class="btn btn-danger  pull-right" name="modify_order_submit" value="Delete" align="center" onclick="document.getElementById('modify_or_delete').value = 'Delete'; ajax_post_submit('modify_order');">Delete</button>
+  </div>
+</form>

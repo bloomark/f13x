@@ -1,0 +1,68 @@
+<div class="code">
+{% for message in get_flashed_messages() %}
+  <div class="flash alert alert-info">
+    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> {{ message }}
+  </div>
+{% endfor %}
+</div>
+
+<b> Quick Stats </b>
+<br/><br/>
+<table class="table">
+<tr><th>Num users</th><td>{{ num_users }}</td></tr>
+<tr><th>Bitcoins </th><td>{{ bitcoins}} </td></tr>
+<tr><th>Dogecoins</th><td>{{ dogecoins}}</td></tr>
+</table>
+
+<br/><br/>
+<b> Recent Transactions </b>
+<br/></br/>
+<table class="table table-striped table-responsive">
+  <tr>
+    <th>#</th>
+    <th>Buyer</th>
+    <th>Seller</th>
+    <th>Currency</th>
+    <th>Quantity</th>
+    <th>Pocketed</th>
+  </tr>
+  {% for c in txns : %}
+  <tr>
+    <td>{{ loop.index }}</td>
+    <td>{{ c.buy_user_email }}</td>
+    <td>{{ c.sell_user_email }}</td>
+    <td>{{ c.currency }}</td>
+    <td>{{ c.quantity }}</td>
+    <td>{{ c.pocketed }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<br/><br/>
+<b> Recent Orders </b>
+<br/></br/>
+<table class="table table-striped table-responsive">
+  <tr>
+    <th>#</th>
+    <th>Action</th>
+    <th>Currency</th>
+    <th>Outstanding</th>
+    <th>Fulfilled</th>
+    <th>Order Type</th>
+    <th>Rate</th>
+    <th>Expiry</th>
+  </tr>
+  {% for c in orders : %}
+  <tr>
+    <td>{{ loop.index }}</td>
+    <td>{{ c.action }}</td>
+    <td>{{ c.currency }}</td>
+    <td>{{ c.quantity_outstanding }}</td>
+    <td>{{ c.quantity_fulfilled }}</td>
+    <td>{{ c.oreder_type }}</td>
+    <td>{{ c.rate }}</td>
+    <td>{{ c.expiry }}</td>
+  </tr>
+  {% endfor %}
+</table>
+

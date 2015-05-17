@@ -1,0 +1,30 @@
+<div class="code">
+{% for message in get_flashed_messages() %}
+  <div class="flash alert alert-info">
+    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> {{ message }}
+  </div>
+{% endfor %}
+</div>
+
+<div class="row">
+  <label> {{ welcome_message }} <br/><br/><br/> Your account balance is :- </label>
+  <table class="table table-responsive">
+  <tr> <th> Currency &nbsp&nbsp</th> <th> Balance </th> </tr>
+  <tr> <td> Funds &nbsp</td> <td> ${{ funds }} </td> </tr>
+  {% for currency in funds_details %}
+    <tr> <td> {{currency}}&nbsp</td> <td> {{ funds_details[currency] }} </td> </tr>
+  {% endfor %}
+  </table>
+
+  <br/><br/><hr style="width: 100%; color: light-grey; height: 0.5px; background-color:grey;"><br/><br/>
+
+  {% if pending_orders != [] %}
+  	<label> Your pending orders are :-</label>
+  	<table class="table table-responsive">
+  	<tr> <th> Buy/Sell </th> <th> Currency </th> <th> Quantity </th> <th> Rate/Market </th> <th> Rate </th> </tr>
+  	{% for order in pending_orders %}
+  	<tr><td>{{order.action}}</td><td>{{order.currency}}</td><td>{{order.quantity_outstanding}}</td><td>{{order.order_type}}</td><td>{{order.rate}}</td></tr>
+  	{% endfor %}
+  	</table>
+  {% endif %}
+</div>

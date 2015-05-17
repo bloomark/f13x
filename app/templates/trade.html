@@ -1,0 +1,44 @@
+<div class="code">
+{% for message in get_flashed_messages() %}
+  <div class="flash alert alert-info">
+    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> {{ message }}
+  </div>
+{% endfor %}
+</div>
+
+<form action="{{url_for('trade')}}" method="POST" enctype="multipart/form-data" name="trade" id="trade">
+  <div class="form-group">
+    {{ form.hidden_tag() }}<br/>
+    <div class="row">
+      <div class="col-md-5"><label>Buy/Sell</label><br/>{{ form.action(autofocus=true, class='form-control select') }}</div>
+      <div class="col-md-4"><label>Currency</label><br/>{{ form.currency(class='form-control select') }}</div>
+    </div>
+    <div class="row"><br/></div>
+    <div class ="row">
+      <div class="col-md-9"><label>Quantity</label><br/>{{ form.quantity(class='form-control input') }}</div>
+    </div>
+    <div class="row"><br/></div>
+    <div class="row"> 
+      <div class="col-md-5"><label>Order Type</label><br/>{{ form.order_type(class="radio", onclick="changeText()") }}</div>
+      <div class="col-md-4"><label>Timing</label><br/>{{ form.expiry(class='form-control select') }}</div>
+    </div>
+    <div class="row"><br/></div>
+    <div class="row">
+        <div class="col-md-5">
+          <label>Rate</label><br/>
+          <div class="input-group"> 
+            {{ form.rate(class="form-control input") }}
+            <span class="input-group-addon"> / <i class="glyphicon glyphicon-bitcoin"></i></span>
+          </div>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-md-9">
+        <div class="pull-left">
+          <button type="button" class="btn btn-primary pull-right" align="center" onclick="ajax_post_submit('trade');">Exchange</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

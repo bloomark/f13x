@@ -1,0 +1,20 @@
+<div class="code">
+{% for message in get_flashed_messages() %}
+  <div class="flash alert alert-info">
+    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> {{ message }}
+  </div>
+{% endfor %}
+</div>
+
+<form action="{{url_for('profile')}}" method="POST" enctype="multipart/form-data">
+  <div class="form-group">
+    {{ form.hidden_tag() }}<br/>
+    <label>Email Id : </label>
+      <p class="form-control-static">{{email}}</p>
+    <br/>
+    <label for="Name">Name</label>
+      {{ form.name }}<br>
+    <br/>
+    <button type="submit" class="btn btn-primary pull-right" align="center">Reset Name</button>
+  </div>
+</form>

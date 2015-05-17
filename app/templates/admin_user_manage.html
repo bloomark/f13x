@@ -1,0 +1,29 @@
+<br/><br/>
+<div class="code">
+{% for message in get_flashed_messages() %}
+  <div class="flash alert alert-info">
+    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> {{ message }}
+  </div>
+{% endfor %}
+</div>
+
+<form action="{{ url_for('admin_user_manager') }}" method="post" enctype="multipart/form-data" name="admin_funds_manager" id="admin_funds_manager">
+  <div class="form-group">
+    {{ form.hidden_tag() }}<br/>
+    <label>Choose Email</label>
+    {{ form.email(class='form-control') }} <br/>
+    <label>Edit Name</label>
+    {{ form.name(class='form-control') }} <br/>
+    <label for="logInput">How much funds you want to add?</label>
+    {{ form.funds(autofocus=true, class='form-control select') }}<br/>
+    <label for="logInput">How much bitcoins you want to add?</label>
+    {{ form.Bitcoin(class='form-control select') }}<br/>
+    <label for="logInput">How much dogecoins you want to add?</label>
+    {{ form.Dogecoin(class='form-control select') }}<br/>
+    <label for="logInput">Bitcoin Address</label>
+    {{ form.bitcoin_address(class='form-control') }}<br/>
+    <label for="logInput">Dogecoin Address</label>
+    {{ form.dogecoin_address(class='form-control') }}<br/>
+    <button type="button" class="btn btn-primary pull-right" align="center" onclick="ajax_post_submit('admin_funds_manager', 'manage_user');">Edit User</button>
+  </div>
+</form>

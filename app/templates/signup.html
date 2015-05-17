@@ -1,0 +1,53 @@
+{% extends "layout_login.html" %}
+{% block head %}
+    <script type="text/javascript">
+    function set_openid(openid, pr)
+    {
+        u = openid.search('<username>');
+        if (u != -1) {
+            // openid requires username
+            user = prompt('Enter your ' + pr + ' username:');
+            openid = openid.substr(0, u) + user;
+        }
+        form = document.forms['signup'];
+        form.elements['openid'].value = openid;
+    }
+    </script>
+{% endblock %}
+{% block content %}
+<div class="row vertical-center-row">
+  <div class="col-lg-12">
+    <div class="row ">
+        <div class="col-md-8">
+            <p>
+                <h1>f13x (flex) </h1><br/>
+                <h3>An online cryptocurrency stock exchange<br/>
+                Sign up now and easily exchange your crypto currency.<br/>
+                </h3>
+                <h2><br/>Buy . Sell . Exchange.<br/></h2>
+            </p>
+        </div>
+        <div class="col-md-4"><!--offset-8"> -->
+
+          <form action="{{ url_for('signup') }}" method="post" name="signup">
+            {{ form.hidden_tag() }}
+            <h3><label>Sign Up</label></h3>
+            <label for="name">Enter you name</label><br/>
+            {{ form.name(class='form-control input') }}<br/>
+            <label for="email">Log in using any of the following openID providers</label><br/>
+            {% for error in form.openid.errors %}
+              <span style="color: red;">[{{ error }}]</span><br/>
+            {% endfor %}<br>
+            <table><tr>
+              {% for pr in providers %}
+                <td><button  class="btn btn-primary" onclick="set_openid('{{ pr.url }}', '{{ pr.name }}')">{{ pr.name }}</button></td>
+              {% endfor %}
+            </tr></table>
+ 
+          </form>
+        </div> <!-- com-md-4 -->
+
+    </div><!-- row -->
+  </div><!-- col-lg-12 -->
+</div><!-- centered row -->
+{% endblock %}

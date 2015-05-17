@@ -1,0 +1,26 @@
+{% extends "layout_login.html" %}
+{% block content %}
+<div class="row vertical-center-row">
+  <div class="col-lg-12">
+    <div class="row ">
+        <div class="col-md-8">
+            <p>
+                <h1>f13x (flex) </h1><br/>
+                <h3>An online cryptocurrency stock exchange<br/>
+                Sign up now and easily exchange your crypto currency.<br/>
+                </h3>
+                <h2><br/>Buy . Sell . Exchange.<br/></h2>
+            </p>
+        </div>
+        <div class="col-md-4"><!--offset-8"> -->
+            <h3><label>Sign in with</label></h3>
+            <table class="table">
+                <tr><td><a href="/login/go"><img src="{{ url_for('static', filename='Google.png')}}" /></a></td></tr>
+                <tr><td><a href="/login/fb"><img src="{{ url_for('static', filename='Facebook.png')}}" /></a></td></tr>
+                <tr><td><a href="/login/gh"><img src="{{ url_for('static', filename='Github.png')}}" /></a></td></tr>
+            </table>
+        </div><!-- div col-md-4 -->
+    </div><!-- row -->
+  </div><!-- col-lg-12 -->
+</div><!-- centered row -->
+{% endblock %}

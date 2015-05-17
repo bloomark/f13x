@@ -1,0 +1,67 @@
+<div class="code">
+{% for message in get_flashed_messages() %}
+  <div class="flash alert">
+    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> {{ message }}
+  </div>
+{% endfor %}
+</div>
+
+{% if buy_entries == [] and sell_entries == [] %}
+  <div class="flash alert danger-info">
+    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+    You do not have a transaction history
+  </div>
+{% else %}
+  <h3>Transaction History</h3>
+  <hr/>
+  {% if buy_entries != [] %}
+    <h3>Your Purchases</h3>
+    <table class="table table-striped table-responsive">
+      <tr>
+        <th>#</th>
+        <th>Action</th>
+        <th>Quantity</th>
+        <th>Currency</th>
+        <th>Rate</th>
+        <th>Rate Option</th>
+      </tr>
+      {% for c in buy_entries : %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>Buy</td>
+          <td>{{ c.quantity }}</td>
+          <td>{{ c.currency }}</td>
+          <td>{{ c.buy_rate }}</td>
+          <td>{{ c.buy_order_type }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    You haven't bought anything yet, make a buy order!
+  {% endif %}
+  {% if sell_entries != [] %}
+    <h3>Your Sales</h3>
+    <table class="table table-striped table-responsive">
+      <tr>
+        <th>#</th>
+        <th>Action</th>
+        <th>Quantity</th>
+        <th>Currency</th>
+        <th>Rate</th>
+        <th>Rate Option</th>
+      </tr>
+      {% for c in sell_entries : %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>Sell</td>
+          <td>{{ c.quantity }}</td>
+          <td>{{ c.currency }}</td>
+          <td>{{ c.sell_rate }}</td>
+          <td>{{ c.sell_order_type }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    You haven't sold anything yet, make a sell order!
+  {% endif %}
+{% endif %}
