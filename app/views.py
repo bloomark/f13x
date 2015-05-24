@@ -2,6 +2,7 @@ from flask import render_template, flash, redirect, session, url_for, request, g
 
 from datetime import datetime
 from functools import wraps
+import unicodedata
 import httplib2
 import uuid
 import json
@@ -586,7 +587,8 @@ def profile():
             return render_template('profile.html', form=form, email=g.user_email, name=g.username)
         # form is validated now process add funds
         
-        name = str(request.form['name']) 
+        name = request.form['name']
+        name = unicodedata.normalize('NFKD', name).encode('ascii','ignore')
         c.put('users', g.user_email, {'name' : name})
         return redirect(url_for('index'))
     return render_template('profile.html', form=form, email=g.user_email, name=g.username)
@@ -667,6 +669,10 @@ def lookup_current_user():
 # 6. Redirect the user to an appropriate page
 ###########################################################
 def login_or_signup_user(email, name):
+    # 0. Convert email and name normal non unicode characters.
+    email = unicodedata.normalize('NFKD', email).encode('ascii','ignore')
+    name  = unicodedata.normalize('NFKD', name ).encode('ascii','ignore')
+    
     # 1.
     if str(email) == None or str(email) == "":
         return redirect(url_for('login'))
@@ -801,6 +807,7 @@ def admin_user_manager():
         bitcoins    = float(request.form['Bitcoin'])
         dogecoins   = float(request.form['Dogecoin'])
         name        = request.form['name']
+        name        = unicodedata.normalize('NFKD', name).encode('ascii','ignore')
 
         c.atomic_add('users', str(email_id), {'Bitcoin' : bitcoins, 'Dogecoin' : dogecoins, 'funds' : added_funds})
         c.put('users', str(email_id), {'name' : str(name)})
